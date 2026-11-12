@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chevy Partes Damar - Repuestos Chevrolet Originales & Alto Rendimiento</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Fonts (Inter & Plus Jakarta Sans) -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        chevy: {
+                            gold: '#FFC72C',
+                            goldHover: '#e5b124',
+                            dark: '#0B0F17',
+                            card: '#161C28',
+                            cardBorder: '#262F40',
+                            accent: '#3B82F6',
+                            neonPurple: '#8B5CF6'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0B0F17;
+            color: #F3F4F6;
+        }
+
+        /* Hero Neon Glow Effect inspired by Dribbble */
+        .hero-glow {
+            background: radial-gradient(circle at 50% 30%, rgba(139, 92, 246, 0.25) 0%, rgba(59, 130, 246, 0.18) 35%, rgba(11, 15, 23, 0.95) 75%);
+        }
+
+        /* Dribbble Style Pill Scroll Bar */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .product-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 199, 44, 0.15);
+        }
+
+        .glass-pill {
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+        .glass-pill:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+        .glass-pill.active {
+            background: #FFFFFF;
+            color: #0B0F17;
+            font-weight: 700;
+        }
+
+        .glass-search {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(16px);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col font-sans antialiased selection:bg-chevy-gold selection:text-black">
+
+    <!-- TOP NAVBAR (Estilo Dribbble Header) -->
+    <header class="border-b border-gray-800/80 bg-chevy-dark/90 sticky top-0 z-50 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+
+                <!-- LOGO -->
+                <div class="flex items-center gap-3 cursor-pointer" onclick="resetFilters()">
+                    <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-chevy-gold via-yellow-400 to-amber-600 flex items-center justify-center text-black font-extrabold text-2xl shadow-lg shadow-chevy-gold/20">
+                        <i class="fa-solid fa-car-side"></i>
+                    </div>
+                    <div>
+                        <span class="text-xl font-extrabold tracking-tight text-white block leading-none">
+                            ChevyPartes<span class="text-chevy-gold"> Damar</span>
+                        </span>
+                        <span class="text-[10px] tracking-widest uppercase font-semibold text-gray-400">Especialistas en Chevrolet</span>
+                    </div>
+                </div>
+
+                <!-- NAV LINKS -->
+                <nav class="hidden lg:flex items-center gap-8 text-sm font-medium text-gray-300">
+                    <button onclick="filterCategory('all')" class="hover:text-chevy-gold transition-colors">Catálogo Completo</button>
+                    <button onclick="filterCategory('Motor')" class="hover:text-chevy-gold transition-colors">Motor</button>
+                    <button onclick="filterCategory('Empacaduras')" class="hover:text-chevy-gold transition-colors">Empacaduras</button>
+                    <button onclick="filterCategory('Suspensión')" class="hover:text-chevy-gold transition-colors">Suspensión</button>
+                    <a href="#contacto" class="hover:text-chevy-gold transition-colors">Contacto</a>
+                </nav>
+
+                <!-- ACCIONES RIGTH -->
+                <div class="flex items-center gap-4">
+                    <a href="https://wa.me/584120000000?text=Hola%20Chevy%20Partes%20Damar,%20necesito%20información" target="_blank" 
+                       class="px-5 py-2.5 rounded-full bg-chevy-gold hover:bg-chevy-goldHover text-black font-bold text-xs uppercase tracking-wider transition-all shadow-md shadow-chevy-gold/10 flex items-center gap-2">
+                        <i class="fa-brands fa-whatsapp text-base"></i> Cotizar Ahora
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <!-- HERO SECTION DRIBBBLE STYLE -->
+        <section class="relative hero-glow py-16 sm:py-24 border-b border-gray-800/50 overflow-hidden">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 text-center relative z-10">
+
+                <!-- CATEGORIES SCROLL PILLS (Píldoras superiores) -->
+                <div class="flex items-center justify-center gap-2 overflow-x-auto no-scrollbar mb-10 py-1">
+                    <button onclick="filterCategory('all')" class="cat-pill glass-pill active px-5 py-2.5 rounded-full text-xs transition-all whitespace-nowrap">
+                        Todos
+                    </button>
+                    <button onclick="filterCategory('Motor')" class="cat-pill glass-pill px-5 py-2.5 rounded-full text-xs text-gray-300 transition-all whitespace-nowrap">
+                        Motor & Bloque
+                    </button>
+                    <button onclick="filterCategory('Empacaduras')" class="cat-pill glass-pill px-5 py-2.5 rounded-full text-xs text-gray-300 transition-all whitespace-nowrap">
+                        Empacaduras
+                    </button>
+                    <button onclick="filterCategory('Anillos')" class="cat-pill glass-pill px-5 py-2.5 rounded-full text-xs text-gray-300 transition-all whitespace-nowrap">
+                        Anillos de Pistón
+                    </button>
+                    <button onclick="filterCategory('Conchas')" class="cat-pill glass-pill px-5 py-2.5 rounded-full text-xs text-gray-300 transition-all whitespace-nowrap">
+                        Conchas / Cojinetes
+                    </button>
+                    <button onclick="filterCategory('Frenos')" class="cat-pill glass-pill px-5 py-2.5 rounded-full text-xs text-gray-300 transition-all whitespace-nowrap">
+                        Frenos & Tren
+                    </button>
+                    <button onclick="filterCategory('Sensores')" class="cat-pill glass-pill px-5 py-2.5 rounded-full text-xs text-gray-300 transition-all whitespace-nowrap">
+                        Sensores & Eléctrico
+                    </button>
+                </div>
+
+                <!-- MAIN HEADLINE -->
+                <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white mb-6 leading-tight">
+                    Encuentra los mejores repuestos <br class="hidden sm:block"> 
+                    <span class="bg-gradient-to-r from-chevy-gold via-amber-300 to-yellow-500 bg-clip-text text-transparent">Chevrolet</span> para tu vehículo
+                </h1>
+
+                <p class="text-gray-400 text-sm sm:text-lg max-w-2xl mx-auto mb-10">
+                    Componentes originales y de alto rendimiento ACL, Hastings, GM Genuine para Aveo, Corsa, Optra, Spark, Cruze, Tahoe y más.
+                </p>
+
+                <!-- BUSCADOR CENTRAL ESTILO DRIBBBLE -->
+                <div class="max-w-2xl mx-auto relative mb-6">
+                    <div class="glass-search rounded-full p-2 flex items-center shadow-2xl border border-white/20 focus-within:ring-4 focus-within:ring-chevy-gold/40 transition-all">
+                        <i class="fa-solid fa-magnifying-glass text-gray-400 text-xl pl-5 pr-3"></i>
+                        <input type="text" id="search-input" onkeyup="handleSearch()" 
+                               placeholder="Buscar por repuesto, modelo o código (Ej. Aveo 1.6, Conchas ACL, Hastings)..." 
+                               class="w-full bg-transparent border-none text-gray-900 placeholder-gray-500 font-medium text-sm sm:text-base focus:outline-none">
+                        <button onclick="handleSearch()" class="bg-chevy-dark hover:bg-black text-white font-bold px-6 py-3 rounded-full text-xs uppercase tracking-wider transition-all">
+                            Buscar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- BÚSQUEDAS POPULARES / CHIPS MODELOS -->
+                <div class="flex flex-wrap items-center justify-center gap-2 text-xs text-gray-400">
+                    <span class="font-semibold text-gray-500 mr-1">Modelos populares:</span>
+                    <button onclick="searchTag('Aveo')" class="px-3 py-1 rounded-full border border-gray-800 hover:border-chevy-gold hover:text-chevy-gold transition-all">Aveo 1.5/1.6</button>
+                    <button onclick="searchTag('Corsa')" class="px-3 py-1 rounded-full border border-gray-800 hover:border-chevy-gold hover:text-chevy-gold transition-all">Corsa 1.3/1.4/1.6</button>
+                    <button onclick="searchTag('Optra')" class="px-3 py-1 rounded-full border border-gray-800 hover:border-chevy-gold hover:text-chevy-gold transition-all">Optra / U20SED</button>
+                    <button onclick="searchTag('Spark')" class="px-3 py-1 rounded-full border border-gray-800 hover:border-chevy-gold hover:text-chevy-gold transition-all">Spark 1.0</button>
+                    <button onclick="searchTag('Cruze')" class="px-3 py-1 rounded-full border border-gray-800 hover:border-chevy-gold hover:text-chevy-gold transition-all">Cruze 1.8</button>
+                    <button onclick="searchTag('Tahoe')" class="px-3 py-1 rounded-full border border-gray-800 hover:border-chevy-gold hover:text-chevy-gold transition-all">Tahoe 5.3</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN CATÁLOGO DE PRODUCTOS -->
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            
+            <!-- HEADER DE SECCIÓN Y FILTROS SECUNDARIOS -->
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 pb-4 border-b border-gray-800 gap-4">
+                <div>
+                    <h2 class="text-2xl font-extrabold text-white">Catálogo de Repuestos</h2>
+                    <p class="text-gray-400 text-xs mt-1" id="results-count">Mostrando todos los productos disponibles</p>
+                </div>
+
+                <div class="flex items-center gap-3 text-xs">
+                    <span class="text-gray-400">Ordenar por:</span>
+                    <select id="sort-select" onchange="handleSort()" class="bg-chevy-card border border-chevy-cardBorder text-white text-xs rounded-lg px-3 py-2 focus:outline-none focus:border-chevy-gold">
+                        <option value="featured">Destacados</option>
+                        <option value="price-low">Precio: Menor a Mayor</option>
+                        <option value="price-high">Precio: Mayor a Menor</option>
+                        <option value="name">Nombre (A-Z)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- PRODUCT GRID (2 A 3 COLUMNAS RESPONSIVO) -->
+            <div id="products-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Tarjetas cargadas dinámicamente con JavaScript -->
+            </div>
+
+            <!-- SIN RESULTADOS -->
+            <div id="no-results" class="hidden text-center py-20 bg-chevy-card/50 rounded-3xl border border-gray-800">
+                <i class="fa-solid fa-wrench text-5xl text-gray-600 mb-4"></i>
+                <h3 class="text-xl font-bold text-white mb-1">No encontramos repuestos para esa búsqueda</h3>
+                <p class="text-gray-400 text-xs mb-6">Intenta con otro término o consulta disponibilidad directa con un asesor.</p>
+                <button onclick="resetFilters()" class="px-6 py-2.5 bg-chevy-gold text-black text-xs font-bold rounded-full hover:bg-chevy-goldHover transition-all">
+                    Ver todos los repuestos
+                </button>
+            </div>
+        </section>
+
+        <!-- FOOTER / BANNER WHATSAPP -->
+        <section id="contacto" class="bg-gradient-to-r from-chevy-card via-slate-900 to-chevy-card border-t border-gray-800 py-16">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+                    <div>
+                        <span class="text-chevy-gold font-bold text-xs uppercase tracking-widest">¿No encuentras lo que buscas?</span>
+                        <h2 class="text-3xl font-extrabold text-white mt-2 mb-4">Te conseguimos cualquier repuesto Chevrolet sobre pedido</h2>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                            Contamos con catálogo completo de partes de motor, cajas, tren delantero, sensores y carrocería para todos los años y modelos GM Chevrolet.
+                        </p>
+                        <div class="flex flex-wrap gap-4 text-xs font-medium text-gray-300">
+                            <span class="flex items-center gap-2"><i class="fa-solid fa-check text-chevy-gold"></i> Envíos Nacionales</span>
+                            <span class="flex items-center gap-2"><i class="fa-solid fa-check text-chevy-gold"></i> Garantía de Fábrica</span>
+                            <span class="flex items-center gap-2"><i class="fa-solid fa-check text-chevy-gold"></i> Asesoría Técnica</span>
+                        </div>
+                    </div>
+                    <div class="bg-chevy-dark p-8 rounded-3xl border border-chevy-cardBorder shadow-2xl text-center">
+                        <i class="fa-brands fa-whatsapp text-5xl text-emerald-400 mb-4"></i>
+                        <h3 class="text-xl font-bold text-white mb-2">Consulta con un especialista Damar</h3>
+                        <p class="text-gray-400 text-xs mb-6">Envíanos el número de parte o serial de chasis (VIN) de tu vehículo.</p>
+                        <a href="https://wa.me/584120000000?text=Hola!%20Busco%20un%20repuesto%20Chevrolet..." target="_blank" 
+                           class="w-full inline-block py-3.5 bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-xl transition-all text-xs uppercase tracking-wider shadow-lg shadow-emerald-500/20">
+                            Abrir WhatsApp Directo
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER LEGAL -->
+    <footer class="bg-black border-t border-gray-900 py-8 text-center text-xs text-gray-500">
+        <p>&copy; 2026 Chevy Partes Damar. Todos los derechos reservados. Marcas y logos pertenecientes a General Motors / Chevrolet.</p>
+    </footer>
+
+    <!-- JAVASCRIPT DINÁMICO -->
+    <script>
+        // BASE DE DATOS DE REPUESTOS CHEVROLET
+        const products = [
+            {
+                id: 1,
+                name: "Juego de Empacaduras Completo Aveo 1.6 16V",
+                category: "Empacaduras",
+                code: "GM-93740200",
+                price: 35.00,
+                model: "Aveo 1.6",
+                brand: "GM Genuine",
+                image: "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=600&q=80",
+                inStock: true
+            },
+            {
+                id: 2,
+                name: "Anillos de Pistón Hastings Corsa / Montana 1.6 (STD)",
+                category: "Anillos",
+                code: "2M4601-STD",
+                price: 28.00,
+                model: "Corsa 1.6",
+                brand: "Hastings USA",
+                image: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=600&q=80",
+                inStock: true
+            },
+            {
+                id: 3,
+                name: "Conchas de Biela ACL Race Series Motor U20SED / C20SED",
+                category: "Conchas",
+                code: "4B2322H-STD",
+                price: 42.00,
+                model: "Optra 2.0 / Leganza",
+                brand: "ACL Australia",
+                image: "https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=600&q=80",
+                inStock: true
+            },
+            {
+                id: 4,
+                name: "Kit de Tiempo (Correa + Tensor + Polea) Optra Design / Limited",
+                category: "Motor",
+                code: "KT-GMU20SED",
+                price: 65.00,
+                model: "Optra 1.8 / 2.0",
+                brand: "Gates / GM",
+                image: "https://images.unsplash.com/photo-1562976540-1502c2145186?auto=format&fit=crop&w=600&q=80",
+                inStock: true
+            },
+            {
+                id: 5,
+                name: "Bomba de Agua Spark 1.0L 8V",
+                category: "Motor",
+                code: "96518977",
+                price: 24.00,
+                model: "Spark 1.0",
+                brand: "ACDelco",
+                image: "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?auto=format&fit=crop&w=600&q=80",
+                inStock: true
+            },
+            {
+                id: 6,
+                name: "Pastillas de Freno Delanteras Cruze 1.8 / Orlando",
+                category: "Frenos",
+                code: "ACD-171-1050",
+                price: 32.00,
+                model: "Cruze 1.8",
+                brand: "ACDelco Ceramic",
+                image: "https://images.unsplash.com/photo-1600705722908-bab1e61c0b4d?auto=format&fit=crop&w=600&q=80",
+                inStock: true
+            },
+            {
+                id: 7,
+                name: "Sensor de Oxígeno Oxigeno Aveo / Optra / Corsa",
+                category: "Sensores",
+                code: "96391493",
+                price: 30.00,
+                model: "Aveo / Optra",
+                brand: "Delphi",
+                image: "https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?auto=format&fit=crop&w=600&q=80",
+                inStock: true
+            },
+            {
+                id: 8,
+                name: "Empacadura de Cámara Amianto Corsa 1.6",
+                category: "Empacaduras",
+                code: "EMP-COR16",
+                price: 12.00,
+                model: "Corsa 1.6",
+                brand: "Sabó Brazil",
+                image: "https://images.unsplash.com/photo-1619725002198-6a689b72f41d?auto=format&fit=crop&w=600&q=80",
+                inStock: true
+            }
+        ];
+
+        let currentCategory = 'all';
+        let currentSearch = '';
+
+        window.onload = function() {
+            renderProducts(products);
+        };
+
+        // RENDERING DE PRODUCTOS
+        function renderProducts(items) {
+            const grid = document.getElementById('products-grid');
+            const noResults = document.getElementById('no-results');
+            const countLabel = document.getElementById('results-count');
+
+            countLabel.innerText = `Mostrando ${items.length} repuestos disponibles`;
+
+            if (items.length === 0) {
+                grid.innerHTML = '';
+                noResults.classList.remove('hidden');
+                return;
+            }
+
+            noResults.classList.add('hidden');
+            grid.innerHTML = items.map(item => `
+                <div class="product-card bg-chevy-card border border-chevy-cardBorder rounded-3xl overflow-hidden flex flex-col justify-between p-5 relative">
+                    
+                    <!-- Imagen & Badges -->
+                    <div class="relative bg-gray-900 rounded-2xl overflow-hidden h-48 mb-4 border border-gray-800/80">
+                        <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover">
+                        <span class="absolute top-3 left-3 bg-black/70 backdrop-blur-md text-chevy-gold border border-chevy-gold/30 text-[10px] font-bold uppercase px-3 py-1 rounded-full">
+                            ${item.brand}
+                        </span>
+                        <span class="absolute top-3 right-3 bg-chevy-dark/80 backdrop-blur-md text-gray-300 text-[10px] font-semibold px-2.5 py-1 rounded-full">
+                            ${item.model}
+                        </span>
+                    </div>
+
+                    <!-- Contenido -->
+                    <div class="flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between text-xs text-gray-400 mb-1">
+                                <span class="text-chevy-accent font-semibold">${item.category}</span>
+                                <span class="font-mono text-[11px] text-gray-500">${item.code}</span>
+                            </div>
+                            <h3 class="text-base font-bold text-white mb-2 line-clamp-2 leading-snug">
+                                ${item.name}
+                            </h3>
+                        </div>
+
+                        <!-- Precio y Botón de WhatsApp -->
+                        <div class="pt-4 mt-3 border-t border-gray-800/80 flex items-center justify-between">
+                            <div>
+                                <span class="text-[10px] text-gray-400 block uppercase font-medium">Precio USD</span>
+                                <span class="text-2xl font-extrabold text-white tracking-tight">$${item.price.toFixed(2)}</span>
+                            </div>
+
+                            <a href="https://wa.me/584120000000?text=Hola%20Chevy%20Partes%20Damar,%20estoy%20interesado%20en:%20${encodeURIComponent(item.name)}%20(Código:%20${item.code})" 
+                               target="_blank" 
+                               class="px-4 py-2.5 bg-chevy-gold hover:bg-chevy-goldHover text-black font-bold text-xs rounded-xl flex items-center gap-2 transition-all shadow-md shadow-chevy-gold/10">
+                                <i class="fa-brands fa-whatsapp text-sm"></i> Comprar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // FILTRADO POR CATEGORÍA
+        function filterCategory(category) {
+            currentCategory = category;
+
+            // Actualizar estilo botones píldora
+            document.querySelectorAll('.cat-pill').forEach(btn => {
+                const btnText = btn.innerText.trim().toLowerCase();
+                if ((category === 'all' && btnText === 'todos') || btnText.includes(category.toLowerCase())) {
+                    btn.className = "cat-pill glass-pill active px-5 py-2.5 rounded-full text-xs transition-all whitespace-nowrap";
+                } else {
+                    btn.className = "cat-pill glass-pill px-5 py-2.5 rounded-full text-xs text-gray-300 transition-all whitespace-nowrap";
+                }
+            });
+
+            applyFilters();
+        }
+
+        // BUSCADOR EN TIEMPO REAL
+        function handleSearch() {
+            currentSearch = document.getElementById('search-input').value.toLowerCase();
+            applyFilters();
+        }
+
+        function searchTag(tag) {
+            document.getElementById('search-input').value = tag;
+            currentSearch = tag.toLowerCase();
+            applyFilters();
+        }
+
+        function applyFilters() {
+            const filtered = products.filter(item => {
+                const matchesCat = currentCategory === 'all' || item.category.toLowerCase() === currentCategory.toLowerCase();
+                const matchesSearch = item.name.toLowerCase().includes(currentSearch) || 
+                                      item.code.toLowerCase().includes(currentSearch) || 
+                                      item.model.toLowerCase().includes(currentSearch) ||
+                                      item.brand.toLowerCase().includes(currentSearch);
+                return matchesCat && matchesSearch;
+            });
+
+            renderProducts(filtered);
+        }
+
+        function resetFilters() {
+            currentCategory = 'all';
+            currentSearch = '';
+            document.getElementById('search-input').value = '';
+            filterCategory('all');
+        }
+
+        // ORDENAMIENTO
+        function handleSort() {
+            const val = document.getElementById('sort-select').value;
+            let sorted = [...products];
+
+            if (val === 'price-low') sorted.sort((a,b) => a.price - b.price);
+            if (val === 'price-high') sorted.sort((a,b) => b.price - a.price);
+            if (val === 'name') sorted.sort((a,b) => a.name.localeCompare(b.name));
+
+            renderProducts(sorted);
+        }
+    </script>
+</body>
+</html>
